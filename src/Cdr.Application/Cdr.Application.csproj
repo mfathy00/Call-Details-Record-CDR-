@@ -1,0 +1,7 @@
+<Project Sdk="Microsoft.NET.Sdk">
+  <PropertyGroup><TargetFramework>net8.0</TargetFramework></PropertyGroup>
+  <ItemGroup>
+    <ProjectReference Include="..\Cdr.Domain\Cdr.Domain.csproj" />
+    <ProjectReference Include="..\Cdr.Contracts\Cdr.Contracts.csproj" />
+  </ItemGroup>
+</Project>

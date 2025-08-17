@@ -1,0 +1,18 @@
+<Project>
+  <PropertyGroup>
+    <TargetFramework>net8.0</TargetFramework>
+    <LangVersion>12.0</LangVersion>
+    <Nullable>enable</Nullable>
+    <TreatWarningsAsErrors>false</TreatWarningsAsErrors>
+    <ImplicitUsings>enable</ImplicitUsings>
+  </PropertyGroup>
+  <ItemGroup>
+    <PackageReference Include="StyleCop.Analyzers" Version="1.2.0-beta.507" PrivateAssets="all" />
+    <PackageReference Include="Microsoft.CodeAnalysis.NetAnalyzers" Version="9.0.0" PrivateAssets="all" />
+  </ItemGroup>
+  
+  <!-- StyleCop Configuration -->
+  <PropertyGroup>
+    <CodeAnalysisRuleSet>$(MSBuildThisFileDirectory)StyleCop.ruleset</CodeAnalysisRuleSet>
+  </PropertyGroup>
+</Project>

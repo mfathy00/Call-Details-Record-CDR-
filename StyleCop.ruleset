@@ -1,0 +1,33 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RuleSet Name="StyleCop Rules" Description="StyleCop rules for CDR API" ToolsVersion="16.0">
+  <Rules AnalyzerId="StyleCop.Analyzers" RuleNamespace="StyleCop.Analyzers">
+    <!-- Suppress file header requirements -->
+    <Rule Id="SA1633" Action="None" />
+    
+    <!-- Suppress file naming requirements -->
+    <Rule Id="SA1649" Action="None" />
+    
+    <!-- Suppress spacing requirements -->
+    <Rule Id="SA1012" Action="None" />
+    <Rule Id="SA1013" Action="None" />
+    <Rule Id="SA1516" Action="None" />
+    
+    <!-- Suppress constructor ordering -->
+    <Rule Id="SA1201" Action="None" />
+    
+    <!-- Suppress string.Empty requirement -->
+    <Rule Id="SA1122" Action="None" />
+    
+    <!-- Suppress single line element requirement -->
+    <Rule Id="SA1502" Action="None" />
+    
+    <!-- Suppress brace omission requirements -->
+    <Rule Id="SA1503" Action="None" />
+    
+    <!-- Suppress 'this' prefix requirements -->
+    <Rule Id="SA1101" Action="None" />
+    
+    <!-- Suppress constructor initializer formatting -->
+    <Rule Id="SA1128" Action="None" />
+  </Rules>
+</RuleSet>

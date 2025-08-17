@@ -1,0 +1,27 @@
+{
+  "name": "CDR API",
+  "build": { 
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "forwardPorts": [8080, 5432],
+  "postCreateCommand": "dotnet restore && dotnet tool restore",
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "ms-dotnettools.csharp",
+        "ms-dotnettools.vscode-dotnet-runtime",
+        "ms-azuretools.vscode-docker",
+        "ms-vscode.vscode-json"
+      ]
+    }
+  },
+  "remoteUser": "root",
+  "mounts": [
+    "source=${localWorkspaceFolder}/.devcontainer/.zshrc,target=/root/.zshrc,type=bind"
+  ],
+  "features": {
+    "ghcr.io/devcontainers/features/docker-in-docker:2": {},
+    "ghcr.io/devcontainers/features/git:1": {}
+  }
+}
