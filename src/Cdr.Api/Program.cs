@@ -39,6 +39,7 @@ builder.Services.AddHealthChecks()
 // Add Application Services
 builder.Services.AddScoped<UploadCdrCsvHandler>();
 builder.Services.AddScoped<Cdr.Application.Anomalies.DetectAnomaliesHandler>();
+builder.Services.AddScoped<Cdr.Application.Nl.NlQueryHandler>();
 
 var app = builder.Build();
 
@@ -65,15 +66,17 @@ app.MapCdrEndpoints();
 using (var scope = app.Services.CreateScope())
 {
     var context = scope.ServiceProvider.GetRequiredService<Cdr.Infrastructure.Persistence.CdrDbContext>();
-    try
+    if (context.Database.IsRelational())
     {
-        await context.Database.MigrateAsync();
-    }
-    catch (Exception ex)
-    {
-        // Log the error but don't fail the startup
-        var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
-        logger.LogWarning(ex, "Failed to apply database migrations. The application will continue but may not function correctly.");
+        try
+        {
+            await context.Database.MigrateAsync();
+        }
+        catch (Exception ex)
+        {
+            var logger = scope.ServiceProvider.GetRequiredService<ILogger<Program>>();
+            logger.LogWarning(ex, "Failed to apply database migrations. The application will continue but may not function correctly.");
+        }
     }
 }
 

@@ -21,11 +21,24 @@ public sealed class CdrRepository : ICdrRepository
 
     public async IAsyncEnumerable<CdrRecord> QueryAsync(CdrSpecification spec, [System.Runtime.CompilerServices.EnumeratorCancellation] CancellationToken ct)
     {
+        var q = Apply(spec);
+        await foreach (var item in q.AsAsyncEnumerable().WithCancellation(ct)) yield return item;
+    }
+
+    public Task<int> CountAsync(CdrSpecification spec, CancellationToken ct)
+        => Apply(spec).CountAsync(ct);
+
+    public Task<decimal> SumCostAsync(CdrSpecification spec, CancellationToken ct)
+        => Apply(spec).SumAsync(x => x.Cost, ct);
+
+    private IQueryable<CdrRecord> Apply(CdrSpecification spec)
+    {
         var q = _db.CdrRecords.AsNoTracking().AsQueryable();
         if (spec.From.HasValue) q = q.Where(x => x.CallDate >= spec.From.Value);
         if (spec.To.HasValue) q = q.Where(x => x.CallDate <= spec.To.Value);
         if (!string.IsNullOrWhiteSpace(spec.CallerId)) q = q.Where(x => x.CallerId == spec.CallerId);
         if (!string.IsNullOrWhiteSpace(spec.Recipient)) q = q.Where(x => x.Recipient == spec.Recipient);
-        await foreach (var item in q.AsAsyncEnumerable().WithCancellation(ct)) yield return item;
+        if (!string.IsNullOrWhiteSpace(spec.RecipientStartsWith)) q = q.Where(x => x.Recipient.StartsWith(spec.RecipientStartsWith));
+        return q;
     }
 }

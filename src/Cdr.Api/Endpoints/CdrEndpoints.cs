@@ -1,5 +1,6 @@
 using Cdr.Application.Anomalies;
 using Cdr.Application.Ingestion;
+using Cdr.Application.Nl;
 using Cdr.Contracts.Dtos;
 
 namespace Cdr.Api.Endpoints;
@@ -46,6 +47,14 @@ public static class CdrEndpoints
             return Results.Ok(res);
         })
         .WithSummary("Detect anomalies");
+
+        grp.MapGet("/query", async (string q, NlQueryHandler handler, CancellationToken ct) =>
+        {
+            var res = await handler.HandleAsync(q, ct);
+            return Results.Ok(res);
+        })
+        .WithSummary("Natural language query")
+        .Produces<NlQueryResponse>();
 
         return app;
     }

@@ -6,4 +6,5 @@ public sealed class CdrSpecification
     public DateOnly? To { get; init; }
     public string? CallerId { get; init; }
     public string? Recipient { get; init; }
+    public string? RecipientStartsWith { get; init; }
 }
